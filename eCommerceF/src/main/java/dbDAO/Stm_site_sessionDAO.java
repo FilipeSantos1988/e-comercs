@@ -28,7 +28,7 @@ public class Stm_site_sessionDAO implements StmSiteSession {
 	public void insert(Stm_site_session obj) {
 
 		PreparedStatement st = null;
-		String mysql = "INSERT INTO stm_site_session (site_id,session_tk,client_id,created_dt,updated_dt)VALUES(?,?,?,?,?);";
+		String mysql = "INSERT INTO stm_site_session (site_id,session_tk,client_id,created_dt,updated_dt)VALUES(?,?,?,curDate(),curDate());";
 
 		try {
 
@@ -36,8 +36,6 @@ public class Stm_site_sessionDAO implements StmSiteSession {
 			st.setObject(1, BigInteger.valueOf(obj.getSite_id()), Types.BIGINT);
 			st.setString(2, obj.getSession_tk());
 			st.setObject(3, BigInteger.valueOf(obj.getClient_id()), Types.BIGINT);
-			st.setDate(4, obj.getCreated_dt());
-			st.setDate(5, obj.getUpdated_dt());
 			int rowsAffected = st.executeUpdate();
 			if (rowsAffected > 0) {
 				

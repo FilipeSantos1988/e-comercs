@@ -1,7 +1,11 @@
 package userInterfaces;
 
 import logicLayer.BussinesFacadeOperation;
+import logicLayer.Cart;
 import logicLayer.LogicLayer;
+import logicLayer.Products;
+import logicLayer.SessionAcess;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
@@ -25,6 +29,8 @@ public class OptionMain extends HttpServlet {
 
 	LogicLayer logicLayer;
 	BussinesFacadeOperation bfo = new BussinesFacadeOperation();
+	SessionAcess sessionAcess = new SessionAcess();
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -52,11 +58,26 @@ public class OptionMain extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		HttpSession session = request.getSession();
+		
+		
+		HttpSession session= request.getSession(false);
+		
+		
+		
+		if(session == null) {
+			session = request.getSession();
+			session.setMaxInactiveInterval(30);
+			sessionAcess = logicLayer.createSession(session.getId());
+			System.out.println(sessionAcess.getClientId()+ sessionAcess.getSessionId());
+			session.setAttribute("sessionAcess", sessionAcess);
+			
+		
+		}
+	
+		
 		int option = Integer.parseInt(request.getParameter("button"));
-		session.setMaxInactiveInterval(50);
-
+		System.out.println("Esqou aqui");
+		
 		/*Long startDate = session.getCreationTime();
 		Long updateDate = session.getLastAccessedTime();
 
@@ -79,25 +100,52 @@ public class OptionMain extends HttpServlet {
 
 		}*/
 
+		
+		
+		
+		
+		
 		switch (option) {
 
 		case 1:
-			List<C_Products> products = logicLayer.Searchproducts();
+			System.out.println("Esqou aqui");
+			List<Products> products = bfo.showProducts();
+			
+			for(Products p: products)
+				System.out.println(p.getProduct_id());
+			
 			request.setAttribute("lProducts", products);
 			RequestDispatcher rd = request.getRequestDispatcher("/Items.jsp");
 			rd.forward(request, response);
 			break;
 
-		}
+		
 		
 		case 2 : 
 			
-			List<Products> products = bfo.showProductOnCart(sessionAcess,cartTk);
-			request.setAttribute("lProducts", products);
-			RequestDispatcher rd = request.getRequestDispatcher("/Items.jsp");
-			rd.forward(request, response);
+			//verificar se tem sessao
+			
 			break;
+			
+		
+		case 3:
+			System.out.println("aqui ja cheguei1");
+			sessionAcess = (SessionAcess) session.getAttribute("sessionAcess");
+			System.out.println("aqui ja cheguei2");
+			System.out.println(sessionAcess.getClientId() + sessionAcess.getSessionId());
+			List<Cart> carts = bfo.showCarts(sessionAcess);
+			RequestDispatcher rd1 = request.getRequestDispatcher("/CartList.jsp");
+			rd1.forward(request, response);
+			
+		break;
+		
+		
+		case 5:
+			
+			
+		break;
+			
 
 	}
 
-}
+}}

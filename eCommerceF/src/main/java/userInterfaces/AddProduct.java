@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import datalayer.Datalayer;
 import logicLayer.LogicLayer;
+import logicLayer.SessionAcess;
 
 /**
  * Servlet implementation class AddProduct
@@ -45,17 +46,12 @@ public class AddProduct extends HttpServlet {
 
 		
 		LogicLayer logicLayer= new LogicLayer();
-		HttpSession session = request.getSession();
-		LogicLayer logicLayer = new LogicLayer();
+		HttpSession session = request.getSession(false);
 		String productId = request.getParameter("add");
 		System.out.println(productId);
-		
 		int idProduct = Integer.parseInt(productId);
-		
-		
-		
-		System.out.println("session " +session.getAttribute("siteId"));
-		System.out.println("clinte "+session.getAttribute("clientId"));
+		SessionAcess sessionAcess = (SessionAcess) session.getAttribute("sessionAcess");
+		logicLayer.addCartProduct(sessionAcess, idProduct);
 		//logicLayer.addCart(productId, idProduct, idProduct, idProduct, null)
 		
 		

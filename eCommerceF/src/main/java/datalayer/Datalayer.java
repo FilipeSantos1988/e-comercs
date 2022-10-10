@@ -41,9 +41,10 @@ public class Datalayer {
 	}
 
 	public void createSession(Stm_site_session session) {
+		System.out.println("Esqou aqui2");
 		StmSiteSession sessionI = DaoFactory.createStmSiteSession();
 		sessionI.insert(session);
-
+	
 	}
 
 	public List<Stm_site_session> getAllSessions(int clientId) {
@@ -239,20 +240,22 @@ public class Datalayer {
 		return price;
 	}
 
-	public List<Stm_site_cart> getClientCarts(int clientId, String sessionId) {
+	public Stm_site_cart getClientCarts(int clientId, String sessionId) {
 
+		System.out.println("aqui ja cheguei7");
 		Datalayer dataLayer = new Datalayer();
 		StmSiteCart cartI = DaoFactory.createStmSiteCart();
 		List<Stm_site_cart> carts = cartI.findAll();
-		List<Stm_site_cart> cartsClient = null;
-
+		System.out.println("aqui ja cheguei7");
+		System.out.println("aqui ja cheguei7");
+		
 		for (Stm_site_cart cart : carts) {
 			if (cart.getClient_id() == clientId && cart.getSession_tk() == sessionId) {
-				cartsClient.add(cart);
+				return cart;
 			}
 		}
-
-		return cartsClient;
+		System.out.println("aqui ja cheguei7");
+		return null;
 	}
 
 	public void removeProduct(String cartTk, int productId) {
@@ -267,8 +270,21 @@ public class Datalayer {
 
 	
 	//update stm_site_cart_product
-	public void addQntProductOnCart(Stm_site_cart_product product) {
-		// TODO Auto-generated method stub
+	
+	
+	public Stm_site_cart_product getProductCartById(int productId) {
+		Datalayer dataLayer = new Datalayer();
+		StmSiteCartProduct cartProductI = DaoFactory.createStmSiteCartProduct();
+		Stm_site_cart_product cartProduct = cartProductI.findById(productId);
+		return cartProduct;
+		
+	}
+	
+	
+	public void AddProductInCart(Stm_site_cart_product productOnCart) {
+		
+		StmSiteCartProduct cartProductI = DaoFactory.createStmSiteCartProduct();
+		cartProductI.insert(productOnCart);
 		
 	}
 

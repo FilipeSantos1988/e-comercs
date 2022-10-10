@@ -15,7 +15,7 @@ public class Session {
 	
 	
 	
-	public void createSession(int siteId,String sessionTk,int clientId,Long createdDate) {
+	public void createSession(int siteId,String sessionTk,int clientId) {
 		
 		
 		Datalayer dataLayer= new Datalayer();
@@ -23,8 +23,6 @@ public class Session {
 		session.setClient_id(clientId);
 		session.setSite_id(siteId);
 		session.setSession_tk(sessionTk);
-		session.setCreated_dt(new Date(createdDate));
-		session.setUpdated_dt(new Date(createdDate));
 		dataLayer.createSession(session);
 		
 		

@@ -23,18 +23,24 @@ public class Products {
 		;
 	}
 	
-	public Products(String product_ds,double price_vl,String productImg) {
+	
+	
+	
+	public Products(int productId,String product_ds,double price_vl,String productImg) {
+		this.product_id = productId;
 		this.product_ds = product_ds;
 		this.price_vl = price_vl;
 		this.productImg = productImg;
 	}
 
-	public Products(String products_ds, String product_image_cd) {
+	public Products(int productId,String products_ds, String product_image_cd) {
+		this.product_id = productId;
 		this.product_ds = products_ds;
 		this.productImg = product_image_cd;
 	}
 
-	public Products(String products_ds, double price_vl) {
+	public Products(int productId,String products_ds, double price_vl) {
+		this.product_id = productId;
 		this.product_ds = products_ds;
 		this.price_vl = price_vl;
 		

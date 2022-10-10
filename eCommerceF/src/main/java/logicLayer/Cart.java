@@ -50,6 +50,31 @@ public class Cart {
 		dataLayer.insertCart(cart);
 
 	}
+	
+	public void getCartBySession(SessionAcess sessionAcess) {
+		Datalayer dataLayer = new Datalayer();
+		Stm_site_cart cart = new Stm_site_cart();
+		
+		cart=dataLayer.getClientCarts(sessionAcess.getClientId(),sessionAcess.getSessionId());
+		if(cart == null) {
+			createCart(sessionAcess);
+			cart=dataLayer.getClientCarts(sessionAcess.getClientId(),sessionAcess.getSessionId());
+			this.cart_tk = cart.getCart_tk();
+			
+			}
+		else {
+			this.cart_tk = cart.getCart_tk();
+		}
+		
+		
+		
+		}
+	
+	public void getProductsOnCart(SessionAcess sessionAcess) {
+		
+		
+		
+	}
 
 	public void removeProductsCart(String cartTk, int productId) {
 
@@ -65,6 +90,27 @@ public class Cart {
 		cart = dataLayer.getCartByNames(cartTk, SessionTk);
 		this.cart_tk = cart.getCart_tk();
 
+	}
+	
+	
+	public void addProduct(int productId) {
+		
+		Stm_site_cart_product cartProducts = new Stm_site_cart_product();
+		Datalayer dataLayer = new Datalayer();
+		cartProducts = dataLayer.getProductCartById(productId);
+		if(cartProducts == null) {
+			cartProducts.setCart_tk(cart_tk);
+			cartProducts.setOrder_qt(1);
+			cartProducts.setProduct_id(productId);
+			cartProducts.setSite_id(1);
+			cartProducts.setUnits_tp("Eur");
+			dataLayer.AddProductInCart(cartProducts);
+		}
+		else {
+			cartProducts.setOrder_qt(cartProducts.getOrder_qt()+1);
+			dataLayer.addExistentProduct(cartProducts);
+		}
+		
 	}
 
 	/*

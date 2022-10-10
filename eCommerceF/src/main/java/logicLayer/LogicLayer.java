@@ -16,6 +16,7 @@ import classes.Stm_site_product_price;
 import classes.Stm_site_session;
 import datalayer.Datalayer;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.ZonedDateTime;
 
 public class LogicLayer {
@@ -33,11 +34,11 @@ public class LogicLayer {
 
 	
 	
-	public void createSession(String sessionTk,Long startDate) {
+	public SessionAcess createSession(String sessionTk) {
 		
-		
-	sessionAcess = bft.createAcess(sessionTk,startDate);
-		
+		System.out.println("Esqou aqui1");
+	sessionAcess = bft.createAcess(sessionTk);
+	return sessionAcess;
 		
 	}
 	
@@ -52,12 +53,54 @@ public class LogicLayer {
 	
 	
 	
-	public void buyProduct() {
+	public void addCart(SessionAcess sessionAcess,String cartTk) {
 		
 		
 		
 	}
+
 	
+	public void removeCart(SessionAcess sessionAcess,String cartTk) {
+	
+	
+		
+	}
+
+	
+	
+	
+	
+	
+	public void addCartProduct(SessionAcess sessionAcess,int productId) {
+		
+		
+		try {
+			bft.addProductToCart(sessionAcess, productId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	public void removeCartProduct(SessionAcess sessionAcess,String cartTk,int productId) {
+		
+	
+		
+		
+	}
+	
+	
+	
+	
+	public void buyCart(SessionAcess sessionAcess,String cartTk) {
+		
+		
+		
+		
+	}
 	
 	
 	

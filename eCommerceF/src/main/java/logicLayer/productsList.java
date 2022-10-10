@@ -28,13 +28,13 @@ public class productsList {
 			
 			
 			if (productPrice.getPrice_vl() == 0 && prod.getProduct_image_cd() != null) {
-				products.add(new Products(prod.getProducts_ds(), prod.getProduct_image_cd()));
+				products.add(new Products(prod.getProduct_id(),prod.getProducts_ds(), prod.getProduct_image_cd()));
 			} else if (prod.getProduct_image_cd() == null && productPrice.getPrice_vl() != 0) {
-				products.add(new Products(prod.getProducts_ds(), productPrice.getPrice_vl()));
+				products.add(new Products(prod.getProduct_id(),prod.getProducts_ds(), productPrice.getPrice_vl()));
 			} else if (productPrice.getPrice_vl() == 0 && prod.getProduct_image_cd() == null) {
 				products.add(new Products(prod.getProducts_ds()));
 			} else {
-				products.add(new Products(prod.getProducts_ds(), productPrice.getPrice_vl(), prod.getProduct_image_cd()));
+				products.add(new Products(prod.getProduct_id(),prod.getProducts_ds(), productPrice.getPrice_vl(), prod.getProduct_image_cd()));
 						
 				
 			}
@@ -43,6 +43,39 @@ public class productsList {
 		return products;
 
 	}
+	
+	public List<Products> getAllProducts (){
+		
+		Datalayer dataLayer = new Datalayer();
+		List<Stm_product> product = new ArrayList<Stm_product>();
+		Stm_site_product_price productPrice =  new Stm_site_product_price();
+		product = dataLayer.getAllProducts();
+		
+		for (Stm_product prod : product) {
+			
+			productPrice = dataLayer.getProductPriceByproductId(prod.getProduct_id());
+			
+			
+			
+			if (productPrice.getPrice_vl() == 0 && prod.getProduct_image_cd() != null) {
+				products.add(new Products(prod.getProduct_id(),prod.getProducts_ds(), prod.getProduct_image_cd()));
+			} else if (prod.getProduct_image_cd() == null && productPrice.getPrice_vl() != 0) {
+				products.add(new Products(prod.getProduct_id(),prod.getProducts_ds(), productPrice.getPrice_vl()));
+			} else if (productPrice.getPrice_vl() == 0 && prod.getProduct_image_cd() == null) {
+				products.add(new Products(prod.getProducts_ds()));
+			} else {
+				products.add(new Products(prod.getProduct_id(),prod.getProducts_ds(), productPrice.getPrice_vl(), prod.getProduct_image_cd()));
+						
+				
+			}
+		}
+		
+		return products;
+
+	}
+
+		
+	
 
 	// criar esta funcao e associar a de baixo
 	public Products getProductById(Integer product_id) {
@@ -55,13 +88,13 @@ public class productsList {
 		Products products = null;
 
 		if (productPrice == null) {
-			products = new Products(product.getProducts_ds(), product.getProduct_image_cd());
+			products = new Products(product.getProduct_id(),product.getProducts_ds(), product.getProduct_image_cd());
 		} else if (product.getProduct_image_cd() == null) {
-			products = new Products(product.getProducts_ds(), productPrice.getPrice_vl());
+			products = new Products(product.getProduct_id(),product.getProducts_ds(), productPrice.getPrice_vl());
 		} else if (productPrice == null && product.getProduct_image_cd() == null) {
 			products = new Products(product.getProducts_ds());
 		} else {
-			products = new Products(product.getProducts_ds(), productPrice.getPrice_vl(),
+			products = new Products(product.getProduct_id(),product.getProducts_ds(), productPrice.getPrice_vl(),
 					product.getProduct_image_cd());
 		}
 

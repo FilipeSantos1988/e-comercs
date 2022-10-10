@@ -30,15 +30,24 @@ public class BussinesFacadeOperation {
 		return products;
 
 	}
+	
+	public List<Products> showProducts(){
+		List<Products> products = new ArrayList<Products>();
+		products = productsList.getAllProducts();
+		return products;
+	}
 
-	public CartsList showCarts(SessionAcess sessionAcess) {
-
-		cartsList.getCart(sessionAcess);
-		return cartsList;
+	public List<Cart> showCarts(SessionAcess sessionAcess) {
+		System.out.println("aqui ja cheguei3");
+		List<Cart>carts= new ArrayList<Cart>();
+		System.out.println("aqui ja cheguei4");
+		carts = cartsList.getCart(sessionAcess);
+		return carts;
 
 	}
 
-	public List<Products> showProductOnCart(SessionAcess sessionAcess, String cartTk) {
+	public List<Products> showProductOnCart(SessionAcess sessionAcess) {
+		
 
 		return productsList.getProductOnCart(sessionAcess, cartTk);
 
