@@ -96,18 +96,19 @@ public class BussinesFacadeTransiction {
 
 	}
 
+	/*
 	public void addProductToCartName(SessionAcess sessionAcess, int productId, String cart_Tk) {
 
 		CartProducts cartProducts = null;
 
 		cartProducts.addProduct(sessionAcess.getSiteId(), cartTk, productId);
-		/*
+		
 		 * Stm_site_cart carts = cart.getCartByName(cartTk,
 		 * sessionAcess.getSessionId()); cart.addCart(carts.getCart_tk(), productId,
 		 * sessionAcess.getSiteId());
-		 */
+		
 
-	}
+	} */
 
 	public void addProductToCart(SessionAcess sessionAcess, int productId) throws SQLException {
 

@@ -11,9 +11,25 @@ import classes.Stm_site_cart_product;
 public class CartProducts {
 
 	Datalayer dataLayer = new Datalayer();
+	int product_id;
+	int site_id;
+	String cart_tk;
 	String units_tp = "Eur";
+	int quantite_order;
 
-//primeiro tenho de deletar os productos dentro do carro
+//primeiro tenho de deletar os productos dentro do carro7
+	
+	public CartProducts() {;}
+	
+	
+	public CartProducts(int site_id,int product_id, String cart_tk, int quantite_order) {
+		
+		this.site_id = site_id;
+		this.product_id = product_id;
+		this.cart_tk = cart_tk;
+		this.quantite_order = quantite_order;
+	}
+	
 	public void deleteCart(Stm_site_cart cart) {
 
 		List<Stm_site_cart_product> cartProducts = new ArrayList<Stm_site_cart_product>();
@@ -33,11 +49,11 @@ public class CartProducts {
 
 	}
 
-	public void removeProductByName(String cartTk, int productId) {
+	/*public void removeProductByName(String cartTk, int productId) {
 
 		dataLayer.removeProductCart(cartTk, productId);
 
-	}
+	}*/
 
 	public boolean chekCart(String cartTk) {
 

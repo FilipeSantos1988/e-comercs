@@ -27,7 +27,7 @@ public class CartsList {
 
 		Datalayer dataLayer = new Datalayer();
 		System.out.println("aqui ja cheguei5");
-		List<Stm_site_cart> cartS = dataLayer.getClientCarts(sessionAcess.getClientId(),sessionAcess.getSessionId());
+		List<Stm_site_cart> cartS = dataLayer.getClientCarts(sessionAcess.getSiteId(),sessionAcess.getproduct_id, String cart_tk, int quantite_order);
 		for(Stm_site_cart cart: cartS) {
 			carts.add(new Cart(cart.getCart_tk()));
 		}

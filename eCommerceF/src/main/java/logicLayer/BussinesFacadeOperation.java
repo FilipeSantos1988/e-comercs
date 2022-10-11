@@ -38,9 +38,7 @@ public class BussinesFacadeOperation {
 	}
 
 	public List<Cart> showCarts(SessionAcess sessionAcess) {
-		System.out.println("aqui ja cheguei3");
 		List<Cart>carts= new ArrayList<Cart>();
-		System.out.println("aqui ja cheguei4");
 		carts = cartsList.getCart(sessionAcess);
 		return carts;
 
@@ -49,7 +47,7 @@ public class BussinesFacadeOperation {
 	public List<Products> showProductOnCart(SessionAcess sessionAcess) {
 		
 
-		return productsList.getProductOnCart(sessionAcess, cartTk);
+		return productsList.getProductOnCart(sessionAcess);
 
 	}
 

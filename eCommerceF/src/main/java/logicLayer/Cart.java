@@ -13,7 +13,7 @@ public class Cart {
 
 	String cart_tk;
 	float totalValue;
-	List<Products> products;
+	List<CartProducts> cart_products;
 	
 	
 	
@@ -25,14 +25,16 @@ public class Cart {
 		this.cart_tk = cart_tk;
 	}
 
-	public void getProductsCart() {
-
+	
+	
+	public void getProductsCart(SessionAcess sessionAcess) {
+		
+		List<Stm_site_cart_product> cartProducts = new ArrayList <Stm_site_cart_product>();
 		Datalayer dataLayer = new Datalayer();
-		List<Stm_site_cart_product> cartProducts = dataLayer.getAllcartproductByName(cart_tk);
-		Products product = null;
+		getCartBySession(sessionAcess);
+		cartProducts = dataLayer.getAllcartproductByName(cart_tk);
 		for (Stm_site_cart_product cartProduct : cartProducts) {
-			product.getProduct(cartProduct.getProduct_id());
-			products.add(product);
+			cart_products.add(new CartProducts(cartProduct.getSite_id(),cartProduct.getProduct_id(),cartProduct.getCart_tk(),cartProduct.getOrder_qt()));
 
 		}
 
